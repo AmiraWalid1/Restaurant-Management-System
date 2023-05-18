@@ -16,7 +16,7 @@ class CustomerSignup:
     phone = ""
 
 class TakeOrder:
-    order=""
+    
     customerName=""
     areacode=""
     customerPhone=""
@@ -45,7 +45,7 @@ def decrypt(s):
 
 # Adding new customer in file
 
-def signup():  # signup
+def signup(check="NO"):  # signup
     try:
 
         fileOrder=open("TakeOrder.txt","w")
@@ -57,14 +57,14 @@ def signup():  # signup
             obj.phone = input('Please, Enter Your Phone Number : ')
             obj.areacode = input('Please, Enter Your Area code : ')
             obj2=TakeOrder()
-            obj2.order=input("Please ,Enter \"Yes\" if you want Make order other than that Enter \"No\" :")
-            if obj2.order=="Yes":
+            
+            if check=="Yes":
                 obj2.customerName=obj.user_name
                 obj2.areacode=obj.areacode
                 obj2.customerPhone=obj.phone
                 fileOrder.write(obj2.customerName+'\t'+obj2.customerPhone+'\t'+obj2.areacode+'\t \n')
             file.write(obj.user_name + '\t' + obj.password + '\t' + obj.phone + '\t' + obj.areacode + '\t \n')
-        print("\n-----------Welcome :)---------- \n")
+        print("\n-----------Welcome "+obj.user_name+" 🤗️---------- \n")
         return True
     except IOError:
         print("Bad , File not Found :(")
@@ -113,7 +113,7 @@ def disPlayAllCustomer():
 
 #   search for a ("signin customer") in SignUp data by username & password
 
-def signin():
+def signin(check="No"):
     obj = CustomerSignup()
     obj2=TakeOrder()
     try:
@@ -133,19 +133,18 @@ def signin():
                     obj2.areacode=records[3]
                     obj2.customerPhone=records[2]
         if isValid_login:
-            print("\nWelcome , Login Successful :) \n")
+            print("\nWelcome "+user_name+" 🤗️ , Login Successful :) \n")
             
-            obj2.order=input("Please ,Enter \"Yes\" if you want Make order other than that Enter \"No\" :")
-            if obj2.order=="Yes":
+            if check=="Yes":
                 fileOrder.write(obj2.customerName+'\t'+obj2.customerPhone+'\t'+obj2.areacode+'\t \n')
             return True
         else:
             print("\nwrong password or username :( \n1.signin \t 2.signup\n ")
             x=input("Enter your choice : ")
             if x=='1':
-                return  signin()
+                return  signin(check)
             elif x=='2':
-                return signup()
+                return signup(check)
             else :
                 return False
     except IOError:
@@ -573,7 +572,7 @@ def MakeOrder():
     except IOError:
         print("-----Welcome-----)")
     try:
-      if(signin()):
+      if(signin("Yes")):
         TotalPrice = int(0)
         with open("Order.txt", 'a') as file:
             c = 'y'
@@ -735,76 +734,49 @@ def UpdateAmountInOrder():
 
 
 def home():
-
-    print('░██╗░░░░░░░██╗███████╗██╗░░░░░░█████╗░░█████╗░███╗░░░███╗███████╗██╗')
-    print('░██║░░██╗░░██║██╔════╝██║░░░░░██╔══██╗██╔══██╗████╗░████║██╔════╝██║')
-    print('░╚██╗████╗██╔╝█████╗░░██║░░░░░██║░░╚═╝██║░░██║██╔████╔██║█████╗░░██║')
-    print('░░████╔═████║░██╔══╝░░██║░░░░░██║░░██╗██║░░██║██║╚██╔╝██║██╔══╝░░╚═╝')
-    print('░░╚██╔╝░╚██╔╝░███████╗███████╗╚█████╔╝╚█████╔╝██║░╚═╝░██║███████╗██╗')
-    print('░░░╚═╝░░░╚═╝░░╚══════╝╚══════╝░╚════╝░░╚════╝░╚═╝░░░░░╚═╝╚══════╝╚═╝')
+    print("\n")
+    print('\t\t░██╗░░░░░░░██╗███████╗██╗░░░░░░█████╗░░█████╗░███╗░░░███╗███████╗██╗')
+    print('\t\t░██║░░██╗░░██║██╔════╝██║░░░░░██╔══██╗██╔══██╗████╗░████║██╔════╝██║')
+    print('\t\t░╚██╗████╗██╔╝█████╗░░██║░░░░░██║░░╚═╝██║░░██║██╔████╔██║█████╗░░██║')
+    print('\t\t░░████╔═████║░██╔══╝░░██║░░░░░██║░░██╗██║░░██║██║╚██╔╝██║██╔══╝░░╚═╝')
+    print('\t\t░░╚██╔╝░╚██╔╝░███████╗███████╗╚█████╔╝╚█████╔╝██║░╚═╝░██║███████╗██╗')
+    print('\t\t░░░╚═╝░░░╚═╝░░╚══════╝╚══════╝░╚════╝░░╚════╝░╚═╝░░░░░╚═╝╚══════╝╚═╝')
     
     c = "y"
     while c == "y":
-        print("Enter 1 : to add new item to Menue")
-        print("Enter 2 : to read all Menue ")
-        print("Enter 3 : to search for type you need")
-        print("Enter 4 : to update an item ")
-        print("Enter 5 : to delete Menue")
-        print("Enter 6 : to Make New order ")
-        print("Enter 7 : to Display your order ")
-        print("Enter 8 : to search for item in order")
-        print("Enter 9 : to update amount of buyed item ")
-        print("Enter 10: to delete item from your order ")
-        print("Enter 11: to Add Item In your Order ")
-        print("Enter 12: to Print Details Order ")
-        #for discounts
-        print("Enter 13: to Print all Discounts avaliable ")#need edit 
-        print("Enter 14: to add discounts for menue items ")
-        print("Enter 15: to check if a specific item has a discounts ") #need edit
-        print("Enter 16: to delete a discount ")
-        print("Enter 17: to update the value of a discount ")
+        print( "1.Signup \n2.SignIn \n3.Update_Password \n4.Logout \n5.View Menue \n6.Make order \n7.Dispaly order \n8.Search Item In Order \n9.Delete Item \n10.Update Amount of item in your Order \n11.add new item To Order \n ")
 
-        c = input("your choice: ")
+
+        c = input("Enter your choice: ")
         if c == "1":
-            writeMenue()
+            signup()
         elif c == "2":
-            readMenue()
+            signin()
 
         elif c == "3":
-            searchMenue()
+            updatepassword()
         elif c == "4":
-            updateMenue()
+            logout()
         elif c == "5":
-            deletefromMenue()
+            readMenue()
         elif c == "6":
             MakeOrder()
         elif c == "7":
-            ReadOrder()
-        elif c == "8":
-            SearchInOrder()
-        elif c == "9":
-            UpdateAmountInOrder()
-        elif c == "10":
-            DeleteItemFromOrder()
-        elif c == "11":
-            AddItemInorder()
-        elif c == "12":
             print("\n******************************(:  Details Order  :)**************************\n")
             ReadOrder()
             detailCustomer()
             
-        elif c == "13":
+        elif c == "8":
+            SearchInOrder()
+        elif c == "9":
+            DeleteItemFromOrder()
+        elif c == "10":
+            UpdateAmountInOrder()
+        elif c == "11":
+            AddItemInorder()
+        elif c == "12":
             displayDiscounts()
-        elif c == "14":
-            addDiscount()
-        elif c == "15":
-            searchDiscounts()
-        elif c == "16":
-            deleteDiscount()
-        elif c == "17":
-            updateDiscount()
-        elif c == "18":
-            disPlayAllCustomer()
+        
                    
         c = input("\nperform another operation (y/n): ")
 home()
